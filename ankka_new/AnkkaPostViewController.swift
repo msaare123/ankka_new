@@ -54,7 +54,7 @@ class AnkkaPostViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 
     
     func downloadSpeciesJSON(){
-        //Lataa palvelimelta listan ankkalajeista
+        //Lataa palvelimelta listan ankkalajeista species-muuttujaan
         guard let downloadURL = urlspecies else{return}
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -86,6 +86,7 @@ class AnkkaPostViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     func htmlPost(url: URL, sighting: Ankka) {
+        //Lähettää ankkadatan palvelimelle
         var request = URLRequest(url: url)
         var postString: Data
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -192,7 +193,7 @@ class AnkkaPostViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 }
 
 extension AnkkaPostViewController: UITextFieldDelegate {
-    //Done button dismisses the keyboard in description field
+    //Kun Done-nappia painetaan näppäimistö lähtee pois
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.description_field.resignFirstResponder()
         return true
