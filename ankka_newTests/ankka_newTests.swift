@@ -21,16 +21,18 @@ class ankka_newTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testDecimalsOnly() {
+        let testString = "123ldsjgf2348ldkgrjlsdkjg"
+        let testString2 = "ödsoijgfoijsdf"
+        let testString3 = "-123-123-"
+        let testString4 = ""
+        XCTAssertEqual(testString.decimalsOnly(), "1232348")
+        XCTAssertEqual(testString2.decimalsOnly(), "")
+        XCTAssertEqual(testString3.decimalsOnly(), "123123")
+        XCTAssertEqual(testString4.decimalsOnly(), "")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    
+    
     
 }

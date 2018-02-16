@@ -32,26 +32,23 @@ class ankka_newUITests: XCTestCase {
     func testAnkkaPost() {
         
         let app = XCUIApplication()
-        app.tabBars.buttons["Lisää havainto"].tap()
+        app.tabBars.buttons["Add Sightning"].tap()
+        app/*@START_MENU_TOKEN@*/.pickerWheels["Mallard"].press(forDuration: 0.8);/*[[".pickers.pickerWheels[\"Mallard\"]",".tap()",".press(forDuration: 0.8);",".pickerWheels[\"Mallard\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/
         
-        let scrollViewsQuery = app.scrollViews
-        let textField = scrollViewsQuery.children(matching: .textField).element(boundBy: 0)
+        let element2 = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element
+        let element = element2.children(matching: .other).element.children(matching: .other).element
+        let textField = element.children(matching: .textField).element(boundBy: 0)
         textField.tap()
-        textField.typeText("20")
+        textField.typeText("400")
         
-        let textField2 = scrollViewsQuery.children(matching: .textField).element(boundBy: 1)
+        let textField2 = element.children(matching: .textField).element(boundBy: 1)
         textField2.tap()
         textField2.tap()
-        textField2.typeText("100")
+        textField2.typeText("Testiankka")
+        element2.buttons["Add Sightning"].tap()
+        app.alerts["Successful"].buttons["OK"].tap()
+ 
         
-        let textField3 = scrollViewsQuery.children(matching: .textField).element(boundBy: 2)
-        textField3.tap()
-        textField3.tap()
-        textField3.typeText("Perusankka")
-        app/*@START_MENU_TOKEN@*/.scrollViews.containing(.staticText, identifier:"Add sightning").element/*[[".scrollViews.containing(.button, identifier:\"Add Sightning\").element",".scrollViews.containing(.staticText, identifier:\"Species\").element",".scrollViews.containing(.staticText, identifier:\"Description\").element",".scrollViews.containing(.staticText, identifier:\"Count\").element",".scrollViews.containing(.staticText, identifier:\"Sightning ID\").element",".scrollViews.containing(.staticText, identifier:\"Add sightning\").element"],[[[-1,5],[-1,4],[-1,3],[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.swipeUp()
-        app/*@START_MENU_TOKEN@*/.buttons["Add Sightning"]/*[[".scrollViews.buttons[\"Add Sightning\"]",".buttons[\"Add Sightning\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
-
     }
     
 }
