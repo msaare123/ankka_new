@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		6DBA7E8B2018A7210031AFBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBA7E8A2018A7210031AFBD /* AppDelegate.swift */; };
-		6DBA7E8D2018A7210031AFBD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBA7E8C2018A7210031AFBD /* ViewController.swift */; };
+		6DBA7E8D2018A7210031AFBD /* AnkkaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBA7E8C2018A7210031AFBD /* AnkkaListViewController.swift */; };
 		6DBA7E902018A7210031AFBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DBA7E8E2018A7210031AFBD /* Main.storyboard */; };
 		6DBA7E922018A7210031AFBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DBA7E912018A7210031AFBD /* Assets.xcassets */; };
 		6DBA7E952018A7210031AFBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DBA7E932018A7210031AFBD /* LaunchScreen.storyboard */; };
 		6DBA7EA02018A7220031AFBD /* ankka_newTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBA7E9F2018A7220031AFBD /* ankka_newTests.swift */; };
 		6DBA7EAB2018A7220031AFBD /* ankka_newUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBA7EAA2018A7220031AFBD /* ankka_newUITests.swift */; };
+		6DBA7EB92018AFEE0031AFBD /* AnkkaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBA7EB82018AFEE0031AFBD /* AnkkaCell.swift */; };
+		6DBA7EBB2018B79E0031AFBD /* Ankka.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBA7EBA2018B79E0031AFBD /* Ankka.swift */; };
+		6DFE6BD2201A774500FD8F1D /* AnkkaPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFE6BD1201A774500FD8F1D /* AnkkaPostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		6DBA7E872018A7210031AFBD /* ankka_new.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ankka_new.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DBA7E8A2018A7210031AFBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6DBA7E8C2018A7210031AFBD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6DBA7E8C2018A7210031AFBD /* AnkkaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkkaListViewController.swift; sourceTree = "<group>"; };
 		6DBA7E8F2018A7210031AFBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6DBA7E912018A7210031AFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DBA7E942018A7210031AFBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +50,9 @@
 		6DBA7EA62018A7220031AFBD /* ankka_newUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ankka_newUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DBA7EAA2018A7220031AFBD /* ankka_newUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ankka_newUITests.swift; sourceTree = "<group>"; };
 		6DBA7EAC2018A7220031AFBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DBA7EB82018AFEE0031AFBD /* AnkkaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkkaCell.swift; sourceTree = "<group>"; };
+		6DBA7EBA2018B79E0031AFBD /* Ankka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ankka.swift; sourceTree = "<group>"; };
+		6DFE6BD1201A774500FD8F1D /* AnkkaPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkkaPostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +104,11 @@
 			isa = PBXGroup;
 			children = (
 				6DBA7E8A2018A7210031AFBD /* AppDelegate.swift */,
-				6DBA7E8C2018A7210031AFBD /* ViewController.swift */,
+				6DBA7E8C2018A7210031AFBD /* AnkkaListViewController.swift */,
+				6DFE6BD1201A774500FD8F1D /* AnkkaPostViewController.swift */,
 				6DBA7E8E2018A7210031AFBD /* Main.storyboard */,
+				6DBA7EBA2018B79E0031AFBD /* Ankka.swift */,
+				6DBA7EB82018AFEE0031AFBD /* AnkkaCell.swift */,
 				6DBA7E912018A7210031AFBD /* Assets.xcassets */,
 				6DBA7E932018A7210031AFBD /* LaunchScreen.storyboard */,
 				6DBA7E962018A7210031AFBD /* Info.plist */,
@@ -259,7 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DBA7E8D2018A7210031AFBD /* ViewController.swift in Sources */,
+				6DFE6BD2201A774500FD8F1D /* AnkkaPostViewController.swift in Sources */,
+				6DBA7EBB2018B79E0031AFBD /* Ankka.swift in Sources */,
+				6DBA7E8D2018A7210031AFBD /* AnkkaListViewController.swift in Sources */,
+				6DBA7EB92018AFEE0031AFBD /* AnkkaCell.swift in Sources */,
 				6DBA7E8B2018A7210031AFBD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
