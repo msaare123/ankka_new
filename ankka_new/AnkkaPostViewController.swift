@@ -10,31 +10,20 @@ import UIKit
 
 class AnkkaPostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
  
-    
-    
-    final let urlspecies = URL(string: serverAddress + "/species") //URL for species json
-    final let urlPost = URL(string: serverAddress + "/sightings")
+    final let urlspecies = URL(string: serverAddress + "/species") //GET-osoite lajitlistalle
+    final let urlPost = URL(string: serverAddress + "/sightings") //POST-osoite ankkahavainnoille
     var species: [Species] = [] //Lajitaulukko
-    var id = 0
-    var count = 0
 
-    
-    
     @IBOutlet weak var description_field: UITextField!
     @IBOutlet weak var species_picker: UIPickerView!
     @IBOutlet weak var count_field: UITextField!
-    
     @IBOutlet weak var datePicker: UIDatePicker!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         species_picker.delegate = self
         species_picker.dataSource = self
         description_field.delegate = self
-
-
         // Do any additional setup after loading the view.
     }
     

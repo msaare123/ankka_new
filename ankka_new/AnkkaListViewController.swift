@@ -8,8 +8,9 @@
 
 import UIKit
 
-class AnkkaListViewController: UIViewController, UITableViewDataSource {
-    final let url = URL(string: serverAddress + "/sightings")
+class AnkkaListViewController: UIViewController {
+    
+    final let url = URL(string: serverAddress + "/sightings") //GET -osoite ankkahavainnoille
     var ankat = [Ankka]() //Pääankkataulukko
 
     @IBOutlet weak var orderButton: UIBarButtonItem!
@@ -33,7 +34,7 @@ class AnkkaListViewController: UIViewController, UITableViewDataSource {
     func downloadSightningsJSON(){
         guard let downloadURL = url else{return} //Tarkistetaan, että osoite on toimiva
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else { //Tarkistetaan että data on oikeasti saatu
+            guard let data = data, error == nil, urlResponse != nil else { //Tarkistetaan että data on oikeasti saatu, jos tulee virhe, esitetään se käyttäjälle popupilla.
                 let alert = UIAlertController(title: "Download Error", message: "Error occured while downloading data from server", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                     NSLog("Download Error Occured!")
@@ -41,13 +42,16 @@ class AnkkaListViewController: UIViewController, UITableViewDataSource {
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            //Dekoodataan JSON
+            //Jos kaikki tähän mennessä ok, dekoodataan JSON
             do{
+                //Virheenkäsittely kustomoidulle päivämäärädekoodaukselle
                 enum DateError: String, Error {
                     case invalidDate
                 }
                 
                 let decoder = JSONDecoder()
+                
+                //Tehdään kustomoitu päivämäärädekoodaus standardin mukaiselle päivämäärälle
                 decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
                     let container = try decoder.singleValueContainer()
                     let dateStr = try container.decode(String.self)
@@ -60,15 +64,19 @@ class AnkkaListViewController: UIViewController, UITableViewDataSource {
                     }
                     throw DateError.invalidDate
                 })
+                
+                //Suoritetaan dekoodaus ja sijoitetaan ankat-muuttujaan
                 let downloaded_ankat = try decoder.decode([Ankka].self, from: data)
                 self.ankat = downloaded_ankat
-                DispatchQueue.main.async { //Needs to be in main thread for reload data
+                DispatchQueue.main.async { //Avataan pääsäije
+                    //Järjestetään asetetun järjestyksen mukaisesti.
                     if let order = self.orderButton.title {
                         self.reorderAnkkaTable(order: order)
                     }
                     self.tableView.reloadData() //Reload table
                 }
                 }catch{
+                    //Dekoodasvirheen sattuessa se kerrotaan käyttäjelle popupilla
                     let alert = UIAlertController(title: "Decoding Error", message: "Error occured while decoding downloaded data", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                         NSLog("Decoding Error Occured!" + error.localizedDescription)
@@ -77,7 +85,6 @@ class AnkkaListViewController: UIViewController, UITableViewDataSource {
                     return
             }
             }.resume()
-        
     }
     
     func reorderAnkkaTable(order: String) {
@@ -94,6 +101,7 @@ class AnkkaListViewController: UIViewController, UITableViewDataSource {
         }
     
     func changeOrder() {
+        //Kääntää havaintotaulun järjestyksen ja muuttaa järjestysnapin tekstin sitä vastaavaksi
         if let order = orderButton.title {
             if order == "Descending" {
                 orderButton.title = "Ascending"
@@ -108,14 +116,19 @@ class AnkkaListViewController: UIViewController, UITableViewDataSource {
     
     
     @IBAction func OrderButtonPressed(_ sender: UIBarButtonItem) {
+        //Järjestysnappi kääntää järjestyksen ja päivittää tableView:n
         changeOrder()
         tableView.reloadData()
     }
+}
+
+extension AnkkaListViewController: UITableViewDataSource {
+    //Extension tableViewin käyttöön
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ankat.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AnkkaCell") as? AnkkaCell else {return UITableViewCell() }
         let dateFor = DateFormatter()
@@ -136,8 +149,6 @@ class AnkkaListViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
-    
-    
-    }
+}
     
 
