@@ -16,6 +16,27 @@ class AnkkaListViewController: UIViewController {
     @IBOutlet weak var orderButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
+    private static let timeZone: DateFormatter = {
+        //Aikavyöhykevertailuun käytettävä dateformatter
+        let timeZone = DateFormatter()
+        timeZone.dateFormat = "Z"
+        return timeZone
+    }()
+    
+    private static let dateFor_noTZ: DateFormatter = {
+        //Dateformatter ilman aikavyöhykettä
+        let dateFor = DateFormatter()
+        dateFor.dateFormat = "dd.MM.yyyy HH:mm"
+        return dateFor
+    }()
+    
+    private static let dateFor_TZ: DateFormatter = {
+        //Dateformatter aikavyöhykkeellä
+        let dateFor = DateFormatter()
+        dateFor.dateFormat = "dd.MM.yyyy HH:mm ZZZZZZ"
+        return dateFor
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -131,19 +152,19 @@ extension AnkkaListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AnkkaCell") as? AnkkaCell else {return UITableViewCell() }
-        let dateFor = DateFormatter()
-        //Tarkistetaan onko päivämäärällä sama aikavyöhyke kuin systeemillä. Näytetään aikavyöhyke ainoastaan jos se on eri.
-        dateFor.dateFormat =  "Z"
-        if dateFor.string(from: ankat[indexPath.row].dateTime) != dateFor.string(from: Date()){
-            dateFor.dateFormat = "dd.MM.yyyy HH:mm ZZZZZZ"
+        
+        let formattedDate: String
+        //Jos aikavyöhyke on eri kuin systeemin, se näytetään päivämääräesityksessä
+        if AnkkaListViewController.timeZone.string(from: ankat[indexPath.row].dateTime) != AnkkaListViewController.timeZone.string(from: Date()){
+            formattedDate = AnkkaListViewController.dateFor_TZ.string(from: ankat[indexPath.row].dateTime)
         }
         else {
-            dateFor.dateFormat = "dd.MM.yyyy HH:mm"
+            formattedDate = AnkkaListViewController.dateFor_noTZ.string(from: ankat[indexPath.row].dateTime)
         }
         
         //Asetetaan labelien tekstit
         cell.desc_label.text = "Description:\n" + ankat[indexPath.row].description
-        cell.datetime_label.text = "Time: " +  dateFor.string(from: ankat[indexPath.row].dateTime)
+        cell.datetime_label.text = "Time: " +  formattedDate
         cell.count_label.text = "Count: " + String(ankat[indexPath.row].count)
         cell.species_label.text = "Species: " +  ankat[indexPath.row].species.capitalized
         
